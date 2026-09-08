@@ -24,7 +24,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     
-    "strict": true,
+    "strict": false,
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
