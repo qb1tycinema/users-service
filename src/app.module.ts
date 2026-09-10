@@ -1,13 +1,13 @@
 import { Module } from "@nestjs/common"
 import { ConfigModule } from "@nestjs/config"
 
-import { grpcEnv } from "./config/env"
+import { databaseEnv, environemtEnv, grpcEnv } from "./config/env"
 
 @Module({
 	imports: [
 		ConfigModule.forRoot({
 			isGlobal: true,
-			load: [grpcEnv]
+			load: [databaseEnv, environemtEnv, grpcEnv]
 		})
 	]
 })
