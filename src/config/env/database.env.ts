@@ -6,15 +6,15 @@ import { DatabaseValidator } from "../validators"
 import { validateEnv } from "@/shared/utils"
 
 export const databaseEnv = registerAs<DatabaseConfig>("database", () => {
-	const valdated = validateEnv(process.env, DatabaseValidator)
+	validateEnv(process.env, DatabaseValidator)
 
 	return {
-		user: valdated.DATABASE_USER,
-		password: valdated.DATABASE_PASS,
-		host: valdated.DATABASE_HOST,
-		port: valdated.DATABASE_PORT,
-		name: valdated.DATABASE_NAME,
-		logging: valdated.DATABASE_LOGGING,
-		sync: valdated.DATABASE_SYNC
+		user: process.env.DATABASE_USER,
+		password: process.env.DATABASE_PASS,
+		host: process.env.DATABASE_HOST,
+		port: parseInt(process.env.DATABASE_PORT),
+		name: process.env.DATABASE_NAME,
+		logging: process.env.DATABASE_LOGGING as any,
+		sync: process.env.DATABASE_SYNC as any
 	}
 })
