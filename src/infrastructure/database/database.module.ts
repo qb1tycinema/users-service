@@ -1,14 +1,15 @@
-import { getTypeOrmConfig } from "@/config/orm";
-import { Module } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
-import { TypeOrmModule } from "@nestjs/typeorm";
+import { Module } from "@nestjs/common"
+import { ConfigService } from "@nestjs/config"
+import { TypeOrmModule } from "@nestjs/typeorm"
+
+import { getTypeOrmConfig } from "@/config/orm"
 
 @Module({
-    imports: [
-        TypeOrmModule.forRootAsync({
-            useFactory: getTypeOrmConfig,
-            inject: [ConfigService]
-        })
-    ]
+	imports: [
+		TypeOrmModule.forRootAsync({
+			useFactory: getTypeOrmConfig,
+			inject: [ConfigService]
+		})
+	]
 })
 export class DatabaseModule {}
