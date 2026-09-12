@@ -2,6 +2,7 @@ import { ConfigService } from "@nestjs/config"
 import type { TypeOrmModuleOptions } from "@nestjs/typeorm"
 
 import type { AllConfigs } from "../interfaces"
+
 import { UserEntity } from "@/modules/users/entities/user.entity"
 
 export const getTypeOrmConfig = (
