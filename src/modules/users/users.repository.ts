@@ -20,4 +20,8 @@ export class UsersRepository {
 
 		return this.repository.save(user)
 	}
+
+	public update(id: string, data: Partial<UserEntity>) {
+		return this.repository.update({ id }, data)
+	}
 }
