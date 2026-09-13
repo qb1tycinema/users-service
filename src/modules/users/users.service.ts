@@ -1,11 +1,15 @@
 import { Injectable } from "@nestjs/common"
-import type { CreateUserRequest, GetMeRequest } from "@qb1tycinema/contracts/gen/users"
+import { RpcException } from "@nestjs/microservices"
+import { RpcStatus } from "@qb1tycinema/common"
+import type {
+	CreateUserRequest,
+	GetMeRequest,
+	PatchUserRequest
+} from "@qb1tycinema/contracts/gen/users"
+import { lastValueFrom } from "rxjs"
 
 import { UsersRepository } from "./users.repository"
 import { AccountClientGrpc } from "@/infrastructure/grpc/clients/account.client"
-import { RpcException } from "@nestjs/microservices"
-import { RpcStatus } from "@qb1tycinema/common"
-import { lastValueFrom } from "rxjs"
 
 @Injectable()
 export class UsersService {
@@ -45,6 +49,26 @@ export class UsersService {
 		const { id } = data
 
 		await this.usersRepository.create({ id: id })
+
+		return { ok: true }
+	}
+
+	public async update(data: PatchUserRequest) {
+		const { userId: id, name, avatar } = data
+
+		const user = await this.usersRepository.findById(id)
+
+		if (!user) {
+			throw new RpcException({
+				code: RpcStatus.NOT_FOUND,
+				details: "User not found"
+			})
+		}
+
+		await this.usersRepository.update(user.id, {
+			...(name !== undefined && { name }),
+			...(avatar !== undefined && { avatar })
+		})
 
 		return { ok: true }
 	}
