@@ -54,7 +54,7 @@ export class UsersService {
 	}
 
 	public async update(data: PatchUserRequest) {
-		const { userId: id, name, avatar } = data
+		const { userId: id, name } = data
 
 		const user = await this.usersRepository.findById(id)
 
@@ -66,8 +66,7 @@ export class UsersService {
 		}
 
 		await this.usersRepository.update(user.id, {
-			...(name !== undefined && { name }),
-			...(avatar !== undefined && { avatar })
+			...(name !== undefined && { name })
 		})
 
 		return { ok: true }
