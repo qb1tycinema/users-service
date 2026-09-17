@@ -1,5 +1,6 @@
 import { ConfigService } from "@nestjs/config"
 import type { TypeOrmModuleOptions } from "@nestjs/typeorm"
+import { join } from "path"
 
 import type { AllConfigs } from "../interfaces"
 
@@ -17,6 +18,7 @@ export const getTypeOrmConfig = (
 		synchronize: config.get("database.sync", { infer: true }),
 		database: config.get("database.name", { infer: true }),
 		logging: config.get("database.logging", { infer: true }),
-		entities: [UserEntity]
+		entities: [UserEntity],
+		migrations: [join(__dirname, "../../migrations/*{.ts,.js}")]
 	}
 }
