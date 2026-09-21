@@ -4,6 +4,7 @@ import { ConfigModule } from "@nestjs/config"
 import { databaseEnv, environemtEnv, grpcEnv } from "./config/env"
 import { DatabaseModule } from "./infrastructure/database/database.module"
 import { UsersModule } from "./modules/users/users.module"
+import { ObservabilityModule } from "./observability/observability.module"
 
 @Module({
 	imports: [
@@ -17,6 +18,7 @@ import { UsersModule } from "./modules/users/users.module"
 			load: [databaseEnv, environemtEnv, grpcEnv]
 		}),
 		DatabaseModule,
+		ObservabilityModule,
 		UsersModule
 	]
 })
