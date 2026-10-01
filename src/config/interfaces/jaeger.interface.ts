@@ -1,3 +1,3 @@
 export interface JaegerConfig {
-    jaegerUrl: string
+	jaegerUrl: string
 }
