@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common"
 import { ConfigModule } from "@nestjs/config"
 
-import { databaseEnv, environemtEnv, grpcEnv } from "./config/env"
+import { databaseEnv, environemtEnv, grpcEnv, jaegerEnv } from "./config/env"
 import { DatabaseModule } from "./infrastructure/database/database.module"
 import { UsersModule } from "./modules/users/users.module"
 import { ObservabilityModule } from "./observability/observability.module"
@@ -15,7 +15,7 @@ import { ObservabilityModule } from "./observability/observability.module"
 				`.env.${process.env.NODE_ENV}`,
 				`.env`
 			],
-			load: [databaseEnv, environemtEnv, grpcEnv]
+			load: [databaseEnv, environemtEnv, grpcEnv, jaegerEnv]
 		}),
 		DatabaseModule,
 		ObservabilityModule,
