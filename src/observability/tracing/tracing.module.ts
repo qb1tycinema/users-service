@@ -22,7 +22,7 @@ export class TracingModule implements OnModuleInit {
 		const sdk = new NodeSDK({
 			traceExporter,
 			resource: resourceFromAttributes({
-				[ATTR_SERVICE_NAME]: "auth-service"
+				[ATTR_SERVICE_NAME]: "users-service"
 			}),
 			instrumentations: [
 				getNodeAutoInstrumentations({
