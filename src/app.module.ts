@@ -1,7 +1,15 @@
 import { Module } from "@nestjs/common"
-import { ConfigModule } from "@nestjs/config"
+import { ConfigModule, ConfigService } from "@nestjs/config"
+import { LoggerModule } from "nestjs-pino"
 
-import { databaseEnv, environemtEnv, grpcEnv, jaegerEnv } from "./config/env"
+import {
+	databaseEnv,
+	environemtEnv,
+	grpcEnv,
+	jaegerEnv,
+	loggerEnv
+} from "./config/env"
+import { getPinoConfig } from "./config/loaders"
 import { DatabaseModule } from "./infrastructure/database/database.module"
 import { UsersModule } from "./modules/users/users.module"
 import { ObservabilityModule } from "./observability/observability.module"
@@ -15,7 +23,11 @@ import { ObservabilityModule } from "./observability/observability.module"
 				`.env.${process.env.NODE_ENV}`,
 				`.env`
 			],
-			load: [databaseEnv, environemtEnv, grpcEnv, jaegerEnv]
+			load: [databaseEnv, environemtEnv, grpcEnv, jaegerEnv, loggerEnv]
+		}),
+		LoggerModule.forRootAsync({
+			useFactory: getPinoConfig,
+			inject: [ConfigService]
 		}),
 		DatabaseModule,
 		ObservabilityModule,
